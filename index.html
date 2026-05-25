@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcuColor — Calculator & Color Studio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="https://github.com/ict2024110-cloud" target="_blank" rel="noopener" class="logo-link" aria-label="GitHub profile">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">CalcuColor</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <button class="nav-tab active" data-panel="calculator" aria-label="Calculator panel">Calculator</button>
+      <button class="nav-tab" data-panel="palette" aria-label="Color palette panel">Colors</button>
+      <button class="nav-tab" data-panel="converter" aria-label="Converter panel">Convert</button>
+    </nav>
+    <button class="mute-btn" id="muteBtn" aria-label="Toggle sound" title="Toggle sound">
+      <span class="mute-icon">🔊</span>
+    </button>
+  </header>
+
+  <!-- Main app -->
+  <main class="app-container">
+
+    <!-- ── CALCULATOR PANEL ── -->
+    <section class="panel active" id="panel-calculator" aria-label="Calculator">
+      <!-- Mode toggle -->
+      <div class="mode-toggle" role="group" aria-label="Calculator mode">
+        <button class="mode-btn active" data-mode="basic">Basic</button>
+        <button class="mode-btn" data-mode="scientific">Scientific</button>
+        <button class="mode-btn" data-mode="binary">Binary</button>
+      </div>
+
+      <!-- Display -->
+      <div class="calc-display" aria-live="polite">
+        <div class="display-expression" id="displayExpr">&nbsp;</div>
+        <div class="display-value" id="displayVal">0</div>
+      </div>
+
+      <!-- Basic buttons -->
+      <div class="keypad" id="keypad-basic">
+        <button class="btn btn-fn" data-action="clear">AC</button>
+        <button class="btn btn-fn" data-action="sign">±</button>
+        <button class="btn btn-fn" data-action="percent">%</button>
+        <button class="btn btn-op" data-action="op" data-val="÷">÷</button>
+
+        <button class="btn btn-num" data-action="digit" data-val="7">7</button>
+        <button class="btn btn-num" data-action="digit" data-val="8">8</button>
+        <button class="btn btn-num" data-action="digit" data-val="9">9</button>
+        <button class="btn btn-op" data-action="op" data-val="×">×</button>
+
+        <button class="btn btn-num" data-action="digit" data-val="4">4</button>
+        <button class="btn btn-num" data-action="digit" data-val="5">5</button>
+        <button class="btn btn-num" data-action="digit" data-val="6">6</button>
+        <button class="btn btn-op" data-action="op" data-val="−">−</button>
+
+        <button class="btn btn-num" data-action="digit" data-val="1">1</button>
+        <button class="btn btn-num" data-action="digit" data-val="2">2</button>
+        <button class="btn btn-num" data-action="digit" data-val="3">3</button>
+        <button class="btn btn-op" data-action="op" data-val="+">+</button>
+
+        <button class="btn btn-num btn-zero" data-action="digit" data-val="0">0</button>
+        <button class="btn btn-num" data-action="dot">.</button>
+        <button class="btn btn-eq" data-action="equals">=</button>
+      </div>
+
+      <!-- Scientific extra buttons -->
+      <div class="keypad keypad-sci hidden" id="keypad-sci">
+        <button class="btn btn-sci" data-action="sci" data-val="sin">sin</button>
+        <button class="btn btn-sci" data-action="sci" data-val="cos">cos</button>
+        <button class="btn btn-sci" data-action="sci" data-val="tan">tan</button>
+        <button class="btn btn-sci" data-action="sci" data-val="log">log</button>
+        <button class="btn btn-sci" data-action="sci" data-val="ln">ln</button>
+        <button class="btn btn-sci" data-action="sci" data-val="sqrt">√</button>
+        <button class="btn btn-sci" data-action="sci" data-val="pow2">x²</button>
+        <button class="btn btn-sci" data-action="sci" data-val="pi">π</button>
+        <button class="btn btn-sci" data-action="sci" data-val="e">e</button>
+        <button class="btn btn-sci" data-action="sci" data-val="inv">1/x</button>
+        <button class="btn btn-sci" data-action="sci" data-val="fact">n!</button>
+        <button class="btn btn-sci" data-action="backspace">⌫</button>
+      </div>
+
+      <!-- Binary keypad -->
+      <div class="keypad keypad-bin hidden" id="keypad-bin">
+        <button class="btn btn-fn" data-action="clear">AC</button>
+        <button class="btn btn-fn" data-action="backspace">⌫</button>
+        <button class="btn btn-op" data-action="op" data-val="AND">AND</button>
+        <button class="btn btn-op" data-action="op" data-val="OR">OR</button>
+
+        <button class="btn btn-num btn-bin" data-action="digit" data-val="1">1</button>
+        <button class="btn btn-num btn-bin" data-action="digit" data-val="0">0</button>
+        <button class="btn btn-op" data-action="op" data-val="XOR">XOR</button>
+        <button class="btn btn-op" data-action="op" data-val="NOT">NOT</button>
+
+        <button class="btn btn-op" data-action="op" data-val="<<">SHL</button>
+        <button class="btn btn-op" data-action="op" data-val=">>">SHR</button>
+        <button class="btn btn-op" data-action="op" data-val="+">+</button>
+        <button class="btn btn-eq" data-action="equals">=</button>
+      </div>
+    </section>
+
+    <!-- ── COLOR PALETTE PANEL ── -->
+    <section class="panel hidden" id="panel-palette" aria-label="Color palette generator">
+      <div class="palette-controls">
+        <div class="color-picker-row">
+          <label for="baseColor">Base Color</label>
+          <input type="color" id="baseColor" value="#6C63FF" />
+          <span class="hex-label" id="baseHexLabel">#6C63FF</span>
+        </div>
+        <div class="scheme-select-row">
+          <label for="schemeType">Scheme</label>
+          <select id="schemeType">
+            <option value="complementary">Complementary</option>
+            <option value="triadic">Triadic</option>
+            <option value="analogous">Analogous</option>
+            <option value="tetradic">Tetradic</option>
+            <option value="monochromatic">Monochromatic</option>
+            <option value="split-complementary">Split-Complementary</option>
+          </select>
+        </div>
+        <button class="btn btn-gen" id="generatePalette">Generate ✦</button>
+        <button class="btn btn-gen btn-random" id="randomPalette">Random 🎲</button>
+      </div>
+
+      <div class="swatches" id="swatches" aria-label="Color swatches"></div>
+
+      <div class="palette-export">
+        <button class="btn btn-export" id="copyCSSVars">Copy CSS Vars</button>
+        <button class="btn btn-export" id="copyHexList">Copy Hex List</button>
+      </div>
+      <div class="copy-toast" id="copyToast">Copied!</div>
+    </section>
+
+    <!-- ── CONVERTER PANEL ── -->
+    <section class="panel hidden" id="panel-converter" aria-label="Number converter">
+      <h2 class="panel-title">Number Converter</h2>
+
+      <div class="converter-grid">
+        <div class="conv-field">
+          <label for="decInput">Decimal</label>
+          <input type="number" id="decInput" placeholder="e.g. 255" min="0" step="1" />
+        </div>
+        <div class="conv-field">
+          <label for="binInput">Binary</label>
+          <input type="text" id="binInput" placeholder="e.g. 11111111" pattern="[01]+" />
+        </div>
+        <div class="conv-field">
+          <label for="hexInput">Hexadecimal</label>
+          <input type="text" id="hexInput" placeholder="e.g. FF" />
+        </div>
+        <div class="conv-field">
+          <label for="octInput">Octal</label>
+          <input type="text" id="octInput" placeholder="e.g. 377" />
+        </div>
+      </div>
+
+      <div class="bitvis" id="bitvis" aria-label="Bit visualization"></div>
+
+      <div class="conv-info" id="convInfo"></div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://github.com/ict2024110-cloud" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.instagram.com/cine.snaper?igsh=cnd0bjRid2tkcHgx" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+    </div>
+    <p class="footer-credit">Built with ♥ · <a href="https://github.com/ict2024110-cloud" target="_blank" rel="noopener">@ict2024110-cloud</a></p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "CalcuColor",
+  "short_name": "CalcuColor",
+  "description": "Calculator, Color Palette Generator & Number Converter",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0f",
+  "theme_color": "#a8ff78",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
